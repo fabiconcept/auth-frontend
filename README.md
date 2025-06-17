@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Auth Dashboard – Frontend Solution
 
-## Getting Started
+This project is the **frontend implementation** for the SaaS authentication system described in the technical assessment. It uses **React 18** and **Redux Toolkit Query** to manage JWT-based authentication with secure cookie handling.
 
-First, run the development server:
+## Configuration
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Environment Variables
+
+Create a `.env.local` file in the root of your project and set your backend API URL:
+
+```env
+# API Configuration
+NEXT_PUBLIC_API_URL=http://localhost:5222
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Backend API Endpoints Expected
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This frontend expects the following backend endpoints to be implemented:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* `POST /api/auth/login` – Login with email/password
+* `POST /api/auth/refresh` – Refresh access token
+* `POST /api/auth/logout` – Logout and clear session
+* `GET /api/users/me` – Get current user profile
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+✅ JWT access tokens stored in Redux (in-memory only)
+✅ Refresh tokens handled securely via httpOnly cookies
+✅ Automatic token refresh on 401 responses
+✅ Protected routes with authentication checks
+✅ Graceful logout if refresh fails or is revoked
+✅ CORS and credential handling
+✅ No usage of `localStorage` to prevent XSS token theft
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Start your backend server and ensure it exposes the endpoints listed above.
+2. Update `NEXT_PUBLIC_API_URL` in `.env.local` to match your backend.
+3. Run the frontend with `npm run dev` or `yarn dev`.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Let me know if you also need a `README.md` for the backend part or want to include setup instructions for a specific stack (like Node/Express or NestJS).

@@ -18,6 +18,7 @@ export default function Dashboard() {
   const [userProfile, setUserProfile] = useState<GetProfileResponse | null>(null);
 
   useEffect(() => {
+    console.log("User profile:", user);
     if (user) {
       setUserProfile(user);
     }
@@ -26,7 +27,9 @@ export default function Dashboard() {
 
   const handleLogout = async () => {
     try {
+      setUserProfile(null);
       await logout().unwrap()
+      console.log("Logout successful")
       router.push("/login")
     } catch (err) {
       console.error("Logout failed:", err)

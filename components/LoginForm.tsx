@@ -10,8 +10,9 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import Link from "next/link"
 
-export default function  LoginForm() {
+export default function LoginForm() {
   const [email, setEmail] = useState("") // Pre-fill for demo
   const [password, setPassword] = useState("") // Pre-fill for demo
   const [login, { isLoading, error }] = useLoginMutation()
@@ -46,15 +47,15 @@ export default function  LoginForm() {
     }
   }
 
-  const getErrorMessage = (error: any) => {
-    if (!error) return null
+  const getErrorMessage = (error: any): string => {
+    if (!error) return "An error occurred"
 
     if (error.status === "FETCH_ERROR") {
       return `Network error: ${error.error}. ${isDemoMode ? "" : "Make sure your backend is running."}`
     }
 
     if ("data" in error) {
-      return error.data?.message || "Login failed"
+      return error.data?.error?.message || "Login failed"
     }
 
     return "An unexpected error occurred"
@@ -104,15 +105,23 @@ export default function  LoginForm() {
               />
             </div>
 
-            {error && (
+            {!!error && (
               <Alert variant="destructive">
-                <AlertDescription>{getErrorMessage(error)}</AlertDescription>
+                <AlertDescription>
+                  {getErrorMessage(error as any)}
+                </AlertDescription>
               </Alert>
             )}
 
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? "Signing in..." : "Sign In"}
             </Button>
+            <div className="mt-4 text-center text-sm">
+              Don't have an account?{" "}
+              <Link href="/register" className="underline">
+                Sign up
+              </Link>
+            </div>
           </form>
         </CardContent>
       </Card>

@@ -12,10 +12,12 @@ let isRefreshing = false
 authMiddleware.startListening({
   matcher: isRejectedWithValue,
   effect: async (action: PayloadAction<any>, listenerApi) => {
+    console.log("Auth middleware triggered")
+
     // Check if this is a 401 error and not already refreshing
     if (action.payload?.status === 401 && !isRefreshing) {
       isRefreshing = true
-
+      
       try {
         // Attempt to refresh the token
         const refreshResult = await listenerApi.dispatch(authApi.endpoints.refresh.initiate())

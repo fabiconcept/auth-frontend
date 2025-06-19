@@ -2,25 +2,87 @@
 
 This project is the **frontend implementation** for the SaaS authentication system described in the technical assessment. It uses **React 18** and **Redux Toolkit Query** to manage JWT-based authentication with secure cookie handling.
 
-## Configuration
+## 🚀 Features
 
-### Environment Variables
+### Authentication
+- ✅ Email/Password Registration & Login
+- ✅ JWT Access & Refresh Token Authentication
+- ✅ Protected Routes with Automatic Redirects
+- ✅ Persistent Sessions with Secure Cookie Storage
+- ✅ Automatic Token Refresh on 401 Responses
+- ✅ CSRF Protection via SameSite Cookies
 
-Create a `.env.local` file in the root of your project and set your backend API URL:
+### Security
+- 🔒 No token storage in `localStorage` or `sessionStorage`
+- 🔒 HttpOnly Cookies for refresh tokens
+- 🔒 Secure cookie flags in production
+- 🔒 CORS and credential handling
+- 🔒 XSS Protection Headers
 
-```env
-# API Configuration
-NEXT_PUBLIC_API_URL=http://localhost:5222
-```
+### User Experience
+- ⚡ Optimistic UI Updates
+- 🔄 Loading States & Error Handling
+- 📱 Responsive Design
+- 🔄 Automatic Session Management
 
-## Backend API Endpoints Expected
+## 📋 Requirements
 
-This frontend expects the following backend endpoints to be implemented:
+- Node.js 18+
+- Next.js 14+
+- Backend API (see API Requirements below)
 
-* `POST /api/auth/login` – Login with email/password
-* `POST /api/auth/refresh` – Refresh access token
-* `POST /api/auth/logout` – Logout and clear session
-* `GET /api/users/me` – Get current user profile
+## ⚙️ Configuration
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn
+   ```
+3. Create a `.env.local` file in the root directory:
+   ```env
+   # API Configuration
+   NEXT_PUBLIC_API_URL=http://localhost:5222
+   ```
+
+## 🚀 Getting Started
+
+1. Start the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+2. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## 🔌 API Requirements
+
+The frontend expects the following backend endpoints:
+
+### Authentication
+- `POST /auth/register` – User registration
+  ```typescript
+  interface RegisterRequest {
+    email: string;
+    password: string;
+    name: string;
+  }
+  ```
+
+- `POST /auth/login` – User login
+  ```typescript
+  interface LoginRequest {
+    email: string;
+    password: string;
+  }
+  ```
+
+- `POST /auth/refresh` – Refresh access token
+- `POST /auth/logout` – Invalidate refresh token
+
+### User
+- `GET /api/profile` – Get current user profile
 
 ## Features
 
